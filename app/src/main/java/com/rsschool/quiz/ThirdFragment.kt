@@ -1,6 +1,5 @@
 package com.rsschool.quiz
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,22 +7,21 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.RadioButton
 import android.widget.Toast
-import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.rsschool.quiz.data.Question
 import com.rsschool.quiz.databinding.FragmentQuizBinding
 
-class SecondFragment : Fragment(R.layout.fragment_quiz) {
+class ThirdFragment : Fragment(R.layout.fragment_quiz) {
     private var _binding: FragmentQuizBinding? = null
     private val binding get() = _binding!!
     private val questionViewModel by viewModels<QuestionViewModel>()
-    private var listener: OpenPrevQuestion? = null
-    private lateinit var selectOption: Question
+    private var listener: OpenNextQuestion? = null
+    private lateinit var selectOption:Question
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        if (context is OpenPrevQuestion)
+        if (context is OpenNextQuestion)
             listener = context
     }
 
@@ -36,36 +34,32 @@ class SecondFragment : Fragment(R.layout.fragment_quiz) {
         return binding.root
     }
 
-    @SuppressLint("ResourceAsColor")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        questionViewModel.questionListTwo.observe(viewLifecycleOwner, {
-            selectOption = it
+        questionViewModel.questionListThree.observe(viewLifecycleOwner, {
+            selectOption=it
             bind(it)
         })
 
-        binding.previousButton.setOnClickListener { listener?.openFirstFragment() }
+        binding.previousButton.setOnClickListener { listener?.openSecondFragment() }
         binding.radioGroup.setOnCheckedChangeListener { _, checkId ->
             if (checkId != 1) {
                 val answerView = view.findViewById<RadioButton>(checkId)
                 val answer = answerView.text.toString()
                 selectOption.choseAnswer = answer
-                questionViewModel.setSecondAnswer(selectOption)
-                binding.nextButton.setOnClickListener { listener?.openThirdFragment()
-                binding.nextButton.setBackgroundColor(R.color.gray)}
+                questionViewModel.setThirdAnswer(selectOption)
+                binding.nextButton.setOnClickListener { listener?.openFourthFragment() }
             } else {
                 Toast.makeText(context, "Выберите вариант", Toast.LENGTH_SHORT).show()
             }
         }
 
-
     }
 
-    interface OpenPrevQuestion {
-        fun openFirstFragment()
-        fun openThirdFragment()
+    interface OpenNextQuestion {
+        fun openFourthFragment()
+        fun openSecondFragment()
     }
-
 
     override fun onDestroyView() {
         _binding = null
