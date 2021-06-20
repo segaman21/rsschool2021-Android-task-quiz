@@ -23,6 +23,7 @@ class MainActivity : AppCompatActivity(), FirstFragment.OpenNextQuestion,
     }
 
     override fun openFirstFragment() {
+        setTheme(R.style.Theme_Quiz_Third)
         supportFragmentManager.beginTransaction()
             .apply {
                 replace(R.id.fragmentContainerView, quiz)
@@ -32,6 +33,7 @@ class MainActivity : AppCompatActivity(), FirstFragment.OpenNextQuestion,
     }
 
     override fun openSecondFragment() {
+        setTheme(R.style.Theme_Quiz_Second)
         supportFragmentManager.beginTransaction()
             .apply {
                 replace(R.id.fragmentContainerView, quizTwo)
@@ -41,6 +43,7 @@ class MainActivity : AppCompatActivity(), FirstFragment.OpenNextQuestion,
     }
 
     override fun openThirdFragment() {
+        setTheme(R.style.Theme_Quiz_First)
         supportFragmentManager.beginTransaction()
             .apply {
                 replace(R.id.fragmentContainerView, quizThree)
@@ -50,6 +53,7 @@ class MainActivity : AppCompatActivity(), FirstFragment.OpenNextQuestion,
     }
 
     override fun openFourthFragment() {
+        setTheme(R.style.Theme_Quiz_Fourth)
         supportFragmentManager.beginTransaction()
             .apply {
                 replace(R.id.fragmentContainerView, quizFour)
@@ -68,6 +72,7 @@ class MainActivity : AppCompatActivity(), FirstFragment.OpenNextQuestion,
     }
 
     override fun openFiveFragment() {
+        setTheme(R.style.Theme_Quiz_Five)
         supportFragmentManager.beginTransaction()
             .apply {
                 replace(R.id.fragmentContainerView, quizFive)
@@ -83,4 +88,5 @@ class MainActivity : AppCompatActivity(), FirstFragment.OpenNextQuestion,
             super.onBackPressed()
         }
     }
+
 }

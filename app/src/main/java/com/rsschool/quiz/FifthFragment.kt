@@ -8,14 +8,15 @@ import android.view.ViewGroup
 import android.widget.RadioButton
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import com.rsschool.quiz.data.Question
 import com.rsschool.quiz.databinding.FragmentQuizBinding
 
-class FifthFragment : Fragment(R.layout.fragment_quiz) {
+class FifthFragment : Fragment() {
     private var _binding: FragmentQuizBinding? = null
     private val binding get() = _binding!!
-    private val questionViewModel by viewModels<QuestionViewModel>()
+    private val questionViewModel by activityViewModels<QuestionViewModel>()
     private var listener: OpenNextQuestion? = null
     private lateinit var selectOption: Question
 
@@ -37,15 +38,18 @@ class FifthFragment : Fragment(R.layout.fragment_quiz) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.nextButton.isEnabled=false
         binding.nextButton.text="Submit"
         questionViewModel.questionListFive.observe(viewLifecycleOwner, {
             selectOption=it
             bind(it)
         })
-
+        binding.toolbar.title="Question 5"
+        binding.toolbar.setNavigationOnClickListener{listener?.openFourthFragment()}
         binding.previousButton.setOnClickListener { listener?.openFourthFragment() }
         binding.radioGroup.setOnCheckedChangeListener { _, checkedId ->
             if (checkedId != -1) {
+                binding.nextButton.isEnabled=true
                 val answerView = view.findViewById<RadioButton>(checkedId)
                 val answer = answerView.text.toString()
                 selectOption.choseAnswer=answer

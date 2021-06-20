@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import com.rsschool.quiz.data.QuestionDesc
 import com.rsschool.quiz.data.Question
 
+
 class QuestionViewModel : ViewModel() {
     var questionListOne = MutableLiveData<Question>()
     var questionListTwo = MutableLiveData<Question>()

@@ -3,7 +3,6 @@ package com.rsschool.quizn
 import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
-
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,15 +11,16 @@ import android.widget.Toast
 import androidx.activity.addCallback
 import com.rsschool.quiz.R
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.activityViewModels
 import com.rsschool.quiz.data.Question
 import com.rsschool.quiz.QuestionViewModel
 import com.rsschool.quiz.databinding.FragmentQuizBinding
 
-class FirstFragment : Fragment(R.layout.fragment_quiz) {
+class FirstFragment : Fragment() {
+
     private var _binding: FragmentQuizBinding? = null
     private val binding get() = _binding!!
-    private val questionViewModel by viewModels<QuestionViewModel>()
+    private val questionViewModel by activityViewModels<QuestionViewModel>()
     private var listener: OpenNextQuestion? = null
     private lateinit var selectOption: Question
 
@@ -37,19 +37,21 @@ class FirstFragment : Fragment(R.layout.fragment_quiz) {
     ): View? {
         _binding = FragmentQuizBinding.inflate(inflater, container, false)
         return binding.root
+
     }
 
-    @SuppressLint("ResourceAsColor")
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        binding.previousButton.setBackgroundColor(R.color.gray)
+        binding.previousButton.isEnabled=false
+        binding.nextButton.isEnabled=false
         questionViewModel.questionListOne.observe(viewLifecycleOwner, {
             selectOption = it
             bind(it)
         })
         binding.radioGroup.setOnCheckedChangeListener { _, checkedId ->
             if (checkedId != -1) {
+                binding.nextButton.isEnabled=true
                 val answerView = view.findViewById<RadioButton>(checkedId)
                 val answer = answerView.text.toString()
                 selectOption.choseAnswer = answer

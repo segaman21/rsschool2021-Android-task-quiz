@@ -19,32 +19,33 @@
 
     <ImageButton
         android:id="@+id/again"
-        android:layout_width="62dp"
-        android:layout_height="57dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
+        app:srcCompat="@drawable/ic_back"
         android:background="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/share"
-        app:srcCompat="?attr/actionModeCloseDrawable" />
+        />
 
     <ImageButton
         android:id="@+id/close"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/ic_close"
         android:background="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/again"
-        app:srcCompat="@android:drawable/ic_menu_close_clear_cancel"
-        android:layout_marginTop="30dp"/>
+       android:layout_marginTop="30dp"/>
 
     <ImageButton
         android:id="@+id/share"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        app:srcCompat="@drawable/ic_share"
         android:background="@color/white"
-        app:srcCompat="?attr/actionModeShareDrawable"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/result"
