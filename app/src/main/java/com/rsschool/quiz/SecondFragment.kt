@@ -36,12 +36,11 @@ class SecondFragment : Fragment() {
     ): View? {
         _binding = FragmentQuizBinding.inflate(inflater, container, false)
         return binding.root
-
     }
 
-      override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.nextButton.isEnabled=false
+        binding.nextButton.isEnabled = false
         binding.toolbar.title = "Question 2"
         binding.toolbar.setNavigationOnClickListener { listener?.openFirstFragment() }
         questionViewModel.questionListTwo.observe(viewLifecycleOwner, {
@@ -51,16 +50,18 @@ class SecondFragment : Fragment() {
         binding.previousButton.setOnClickListener { listener?.openFirstFragment() }
         binding.radioGroup.setOnCheckedChangeListener { _, checkId ->
             if (checkId != 1) {
-                binding.nextButton.isEnabled=true
+                binding.nextButton.isEnabled = true
                 val answerView = view.findViewById<RadioButton>(checkId)
                 val answer = answerView.text.toString()
-                selectOption.choseAnswer = answer
-                questionViewModel.setSecondAnswer(selectOption)
+                if (answer != "") {
+                    selectOption.choseAnswer = answer
+                    questionViewModel.setSecondAnswer(selectOption)
+                } else {
+                    questionViewModel.setSecondAnswer(selectOption)
+                }
                 binding.nextButton.setOnClickListener {
                     listener?.openThirdFragment()
                 }
-            } else {
-                Toast.makeText(context, "Выберите вариант", Toast.LENGTH_SHORT).show()
             }
         }
     }
@@ -69,7 +70,6 @@ class SecondFragment : Fragment() {
         fun openFirstFragment()
         fun openThirdFragment()
     }
-
 
     override fun onDestroyView() {
         _binding = null

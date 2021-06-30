@@ -33,31 +33,33 @@ class FifthFragment : Fragment() {
     ): View? {
         _binding = FragmentQuizBinding.inflate(inflater, container, false)
         return binding.root
-
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.nextButton.isEnabled=false
-        binding.nextButton.text="Submit"
+        binding.nextButton.isEnabled = false
+        binding.nextButton.text = "Submit"
         questionViewModel.questionListFive.observe(viewLifecycleOwner, {
-            selectOption=it
+            selectOption = it
             bind(it)
         })
-        binding.toolbar.title="Question 5"
-        binding.toolbar.setNavigationOnClickListener{listener?.openFourthFragment()}
+        binding.toolbar.title = "Question 5"
+        binding.toolbar.setNavigationOnClickListener { listener?.openFourthFragment() }
         binding.previousButton.setOnClickListener { listener?.openFourthFragment() }
         binding.radioGroup.setOnCheckedChangeListener { _, checkedId ->
             if (checkedId != -1) {
-                binding.nextButton.isEnabled=true
+                binding.nextButton.isEnabled = true
                 val answerView = view.findViewById<RadioButton>(checkedId)
                 val answer = answerView.text.toString()
-                selectOption.choseAnswer=answer
-                questionViewModel.setFifthAnswer(selectOption)
-                binding.nextButton.setOnClickListener { listener?.openResult()}
-            } else Toast.makeText(context, "Выберите вариант", Toast.LENGTH_SHORT).show()
+                if (answer != "") {
+                    selectOption.choseAnswer = answer
+                    questionViewModel.setFifthAnswer(selectOption)
+                } else {
+                    questionViewModel.setFifthAnswer(selectOption)
+                }
+                binding.nextButton.setOnClickListener { listener?.openResult() }
+            }
         }
-
     }
 
     interface OpenNextQuestion {

@@ -18,7 +18,7 @@ class FourthFragment : Fragment() {
     private val binding get() = _binding!!
     private val questionViewModel by activityViewModels<QuestionViewModel>()
     private var listener: OpenNextQuestion? = null
-    private lateinit var selectOption:Question
+    private lateinit var selectOption: Question
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -37,24 +37,26 @@ class FourthFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.nextButton.isEnabled=false
+        binding.nextButton.isEnabled = false
         questionViewModel.questionListFour.observe(viewLifecycleOwner, {
-            selectOption=it
+            selectOption = it
             bind(it)
         })
-        binding.toolbar.title="Question 4"
-        binding.toolbar.setNavigationOnClickListener{listener?.openThirdFragment()}
+        binding.toolbar.title = "Question 4"
+        binding.toolbar.setNavigationOnClickListener { listener?.openThirdFragment() }
         binding.previousButton.setOnClickListener { listener?.openThirdFragment() }
         binding.radioGroup.setOnCheckedChangeListener { _, checkId ->
             if (checkId != 1) {
-                binding.nextButton.isEnabled=true
+                binding.nextButton.isEnabled = true
                 val answerView = view.findViewById<RadioButton>(checkId)
                 val answer = answerView.text.toString()
-                selectOption.choseAnswer = answer
-                questionViewModel.setFourthAnswer(selectOption)
+                if (answer != "") {
+                    selectOption.choseAnswer = answer
+                    questionViewModel.setFourthAnswer(selectOption)
+                } else {
+                    questionViewModel.setFourthAnswer(selectOption)
+                }
                 binding.nextButton.setOnClickListener { listener?.openFiveFragment() }
-            } else {
-                Toast.makeText(context, "Выберите вариант", Toast.LENGTH_SHORT).show()
             }
         }
     }

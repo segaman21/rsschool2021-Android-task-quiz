@@ -21,21 +21,23 @@ class QuestionViewModel : ViewModel() {
         questionListFive.value = QuestionDesc.questionFive()
     }
 
-    fun setFirstAnswer(answer:Question){
-        questionListOne.value=answer
-    }
-    fun setSecondAnswer(answer: Question){
-        questionListTwo.value=answer
-    }
-    fun setThirdAnswer(answer: Question){
-        questionListThree.value=answer
-    }
-    fun setFourthAnswer(answer: Question){
-        questionListFour.value=answer
-    }
-    fun setFifthAnswer(answer: Question){
-        questionListFive.value=answer
+    fun setFirstAnswer(answer: Question) {
+        questionListOne.value = answer
     }
 
+    fun setSecondAnswer(answer: Question) {
+        questionListTwo.value = answer
+    }
 
+    fun setThirdAnswer(answer: Question) {
+        questionListThree.value = answer
+    }
+
+    fun setFourthAnswer(answer: Question) {
+        questionListFour.value = answer
+    }
+
+    fun setFifthAnswer(answer: Question) {
+        questionListFive.value = answer
+    }
 }

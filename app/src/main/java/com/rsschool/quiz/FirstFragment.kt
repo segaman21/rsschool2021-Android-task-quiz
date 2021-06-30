@@ -1,6 +1,5 @@
-package com.rsschool.quizn
+package com.rsschool.quiz
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,11 +8,9 @@ import android.view.ViewGroup
 import android.widget.RadioButton
 import android.widget.Toast
 import androidx.activity.addCallback
-import com.rsschool.quiz.R
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.rsschool.quiz.data.Question
-import com.rsschool.quiz.QuestionViewModel
 import com.rsschool.quiz.databinding.FragmentQuizBinding
 
 class FirstFragment : Fragment() {
@@ -40,26 +37,29 @@ class FirstFragment : Fragment() {
 
     }
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.previousButton.isEnabled=false
-        binding.nextButton.isEnabled=false
+        binding.previousButton.isEnabled = false
+        binding.nextButton.isEnabled = false
         questionViewModel.questionListOne.observe(viewLifecycleOwner, {
             selectOption = it
             bind(it)
         })
         binding.radioGroup.setOnCheckedChangeListener { _, checkedId ->
             if (checkedId != -1) {
-                binding.nextButton.isEnabled=true
+                binding.nextButton.isEnabled = true
                 val answerView = view.findViewById<RadioButton>(checkedId)
                 val answer = answerView.text.toString()
-                selectOption.choseAnswer = answer
-                questionViewModel.setFirstAnswer(selectOption)
+                if (answer != "") {
+                    selectOption.choseAnswer = answer
+                    questionViewModel.setFirstAnswer(selectOption)
+                } else {
+                    questionViewModel.setFirstAnswer(selectOption)
+                }
                 binding.nextButton.setOnClickListener { listener?.openSecondFragment() }
-            } else Toast.makeText(context, "Выберите вариант", Toast.LENGTH_SHORT).show()
+            }
         }
-        requireActivity().onBackPressedDispatcher.addCallback(){}
+        requireActivity().onBackPressedDispatcher.addCallback() {}
     }
 
     interface OpenNextQuestion {
@@ -70,7 +70,6 @@ class FirstFragment : Fragment() {
         _binding = null
         super.onDestroyView()
     }
-
 
     private fun bind(quest: Question) {
         binding.question.text = quest.question

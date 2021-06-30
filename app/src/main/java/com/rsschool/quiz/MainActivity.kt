@@ -2,7 +2,7 @@ package com.rsschool.quiz
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.rsschool.quizn.FirstFragment
+
 
 class MainActivity : AppCompatActivity(), FirstFragment.OpenNextQuestion,
     SecondFragment.OpenPrevQuestion, FourthFragment.OpenNextQuestion,
