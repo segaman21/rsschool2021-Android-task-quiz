@@ -81,12 +81,12 @@ class MainActivity : AppCompatActivity(), FirstFragment.OpenNextQuestion,
             }
     }
 
-    override fun onBackPressed() {
-        if (supportFragmentManager.backStackEntryCount in 1..4) {
-            supportFragmentManager.popBackStack()
-        } else {
-            super.onBackPressed()
-        }
-    }
+//    override fun onBackPressed() {
+//        if (supportFragmentManager.backStackEntryCount in 1..4) {
+//            supportFragmentManager.popBackStack()
+//        } else {
+//            super.onBackPressed()
+//        }
+//    }
 
 }

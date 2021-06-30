@@ -6,10 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.RadioButton
-import android.widget.Toast
+import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import com.rsschool.quiz.data.Question
 import com.rsschool.quiz.databinding.FragmentQuizBinding
 
@@ -60,6 +59,7 @@ class FifthFragment : Fragment() {
                 binding.nextButton.setOnClickListener { listener?.openResult() }
             }
         }
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) { listener?.openFourthFragment() }
     }
 
     interface OpenNextQuestion {

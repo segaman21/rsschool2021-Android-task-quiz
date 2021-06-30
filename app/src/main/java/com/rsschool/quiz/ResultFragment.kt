@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.rsschool.quiz.data.Question
@@ -26,7 +27,6 @@ class ResultFragment : Fragment(R.layout.resoult_fragment) {
     ): View? {
         _binding = ResoultFragmentBinding.inflate(inflater, container, false)
         return binding.root
-
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -44,7 +44,7 @@ class ResultFragment : Fragment(R.layout.resoult_fragment) {
         checkResult(questionViewModel.questionListFive.value)
         res = count.toDouble() / 5 * 100
         binding.result.text = "Your result: ${res.toInt()}% "
-
+        requireActivity().onBackPressedDispatcher.addCallback() { }
     }
 
     override fun onDestroyView() {
@@ -56,12 +56,13 @@ class ResultFragment : Fragment(R.layout.resoult_fragment) {
         val sendIntent = Intent().apply {
             action = Intent.ACTION_SEND
             type = "text/plain"
-            putExtra(Intent.EXTRA_TEXT, "Ваш результат: ${res.toInt()}% \n\n " +
-                    "1) ${questionViewModel.questionListOne.value?.let { shareResult(it) }}\n" +
-                    "2) ${questionViewModel.questionListTwo.value?.let { shareResult(it) }}\n" +
-                    "3) ${questionViewModel.questionListThree.value?.let { shareResult(it) }}\n" +
-                    "4) ${questionViewModel.questionListFour.value?.let { shareResult(it) }}\n" +
-                    "5) ${questionViewModel.questionListFive.value?.let { shareResult(it) }}\n"
+            putExtra(
+                Intent.EXTRA_TEXT, "Ваш результат: ${res.toInt()}% \n\n " +
+                        "1) ${questionViewModel.questionListOne.value?.let { shareResult(it) }}\n" +
+                        "2) ${questionViewModel.questionListTwo.value?.let { shareResult(it) }}\n" +
+                        "3) ${questionViewModel.questionListThree.value?.let { shareResult(it) }}\n" +
+                        "4) ${questionViewModel.questionListFour.value?.let { shareResult(it) }}\n" +
+                        "5) ${questionViewModel.questionListFive.value?.let { shareResult(it) }}\n"
             )
         }
         startActivity(sendIntent)

@@ -1,20 +1,16 @@
 package com.rsschool.quiz
 
-import android.R
-import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
-import android.view.ContextThemeWrapper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.RadioButton
-import android.widget.Toast
+import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.rsschool.quiz.data.Question
 import com.rsschool.quiz.databinding.FragmentQuizBinding
-
 
 class SecondFragment : Fragment() {
     private var _binding: FragmentQuizBinding? = null
@@ -64,6 +60,7 @@ class SecondFragment : Fragment() {
                 }
             }
         }
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) { listener?.openFirstFragment() }
     }
 
     interface OpenPrevQuestion {
